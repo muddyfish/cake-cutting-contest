@@ -1,2 +1,0 @@
-javac $1
-java ./bots/$2.class
