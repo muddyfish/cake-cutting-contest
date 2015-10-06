@@ -12,7 +12,7 @@ def get_answers(q_id, page_id = 1):
     response = requests.get(url, params=values)
     response_dict = response.json()
     answers = response_dict["items"]
-    print("QUOTA", response_dict["quota_remaining"], "OF", response_dict["quota_max"])
+    print "QUOTA", response_dict["quota_remaining"], "OF", response_dict["quota_max"]
     if response_dict["has_more"]:
         answers.extend(get_answers(q_id, page_id+1))
     return answers
@@ -43,26 +43,26 @@ def parse_answer(body):
     code_xml = soup.find("code")
     parts = header.split(",")
     if len(parts) != 2:
-        print("ANSWER DOESN'T HAVE VALID HEADER" , repr(header))
+        print "ANSWER DOESN'T HAVE VALID HEADER" , `header`
         return
     if not code_xml:
-        print("ANSWER DOESN'T HAVE VALID CODE BLOCK", repr(header))
+        print "ANSWER DOESN'T HAVE VALID CODE BLOCK", `header`
         return
     bot_name, language = [part.strip() for part in parts]
     code = code_xml.get_text()
     extention = get_extention(language)
     if extention == "":
         try:
-            print("UNKNOWN LANGUAGE", language)
+            print "UNKNOWN LANGUAGE", language
         except UnicodeEncodeError:
-            print(repr(language))
+            print `language`
         return
     bot_name = "".join(x for x in bot_name if x.isalnum())
     file_name = bot_name+"."+extention
     return bot_name, file_name, extention, language, code
 
 def save_answer(entry):
-    print(entry)
+    #print entry
     try:
         f = open("bots/"+entry[1], "w")
     except UnicodeEncodeError:
@@ -72,9 +72,9 @@ def save_answer(entry):
     return 'sh "./commands/%s.sh" "./bots/%s" %s' %(entry[3].lower(), entry[1], entry[0])+ ' %s %s %s %s'
 
 answers = map(save_answer, filter(None,map(parse_answer, get_answer_body())))
-print(answers)
+#print(answers)
 f = open("answers.json", "w")
 json.dump(answers, f)
 f.close()
-print(len(answers))
+print len(answers)
 
