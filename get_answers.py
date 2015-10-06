@@ -32,7 +32,8 @@ def get_extention(language):
         "awk": "awk",
         "node.js": "js",
         "bash": "sh",
-        "sh": "sh"
+        "sh": "sh",
+        "c++": "cpp"
         }
     if language in languages:
         return languages[language]

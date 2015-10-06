@@ -1,4 +1,4 @@
-import json, random, copy
+import json, random, copy, sys
 import subprocess
 
 MAX_DEGREES = 3600
@@ -26,8 +26,11 @@ def run_round(answers, max_degrees, degrees_left, max_people):
     bids = []
     for bot in answers:
         cmd = bot % (max_degrees, degrees_left, max_people, len(answers))
-        logfile.write(`cmd`+"\n")
+        print `cmd`,
+        sys.stdout.flush()
         bids.append(get_bot_bid(degrees_left, run_cmd(cmd)))
+        logfile.write(`cmd`+" bidded "+str(bids[-1])+"\n")
+        print "bidded "+str(bids[-1])
     win = random.choice([i for i,bid in enumerate(bids) if bid == min(bids)])
     logfile.write("Bids: "+`bids` + " winning bid " + `bids[win]`+ "\n")
     degrees_left -= bids[win]
@@ -48,5 +51,7 @@ def run_cake(answers, max_degrees = 360):
     return bids
 
 for i in range(1):
+    logfile.write("\n\nNEW ROUND\n\n")
     bids = run_cake(copy.deepcopy(answers), MAX_DEGREES)
     print bids, [k for k,v in bids.iteritems() if v==max(bids.values())]
+    logfile.write("\n"+json.dumps(bids)+"\n")
