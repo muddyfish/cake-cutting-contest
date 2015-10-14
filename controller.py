@@ -1,7 +1,7 @@
 import json, random, copy, sys
 import subprocess
 
-MAX_DEGREES = 3600
+MAX_DEGREES = 36000
 
 f = open("answers.json")
 answers = json.load(f)
@@ -50,8 +50,10 @@ def run_cake(answers, max_degrees = 360):
     print degrees_left
     return bids
 
-for i in range(1):
+#for i in range(1):
+while 1:
     logfile.write("\n\nNEW ROUND\n\n")
     bids = run_cake(copy.deepcopy(answers), MAX_DEGREES)
-    print bids, [k for k,v in bids.iteritems() if v==max(bids.values())]
+    for bid in sorted(bids.iteritems(), key = lambda x: -x[1]): print "%r: %r"%(bid)
     logfile.write("\n"+json.dumps(bids)+"\n")
+    logfile.flush()
