@@ -3,17 +3,24 @@ import subprocess
 
 MAX_DEGREES = 36000
 
-f = open("answers.json")
+answers_file = "answers.json"
+if len(sys.argv) == 2:
+    answers_file = sys.argv[1]
+
+f = open(answers_file)
 answers = json.load(f)
 f.close()
 
 logfile = open("log.log", "a")
 logfile.write("\n\nNEW RUN\n\n")
 
+
 def get_botname(cmd): return cmd.split('"')[4].split(" ")[1]
+
 
 def get_bot_bid(degrees_left, str_out):
     return min(degrees_left, max(0, int(float(str_out))))
+
 
 def run_cmd(cmd):
     try:
@@ -21,6 +28,7 @@ def run_cmd(cmd):
     except Exception as e:
         logfile.write("An Error occured running the bot: "+`cmd`+"\nException:\n"+`e`)
         return 0
+
 
 def run_round(answers, max_degrees, degrees_left, max_people):
     bids = []
@@ -37,6 +45,7 @@ def run_round(answers, max_degrees, degrees_left, max_people):
     bot = answers.pop(win)
     return degrees_left, answers, {get_botname(bot): bids[win]}
 
+
 def run_cake(answers, max_degrees = 360):
     people = len(answers)
     max_people = people
@@ -50,10 +59,10 @@ def run_cake(answers, max_degrees = 360):
     print degrees_left
     return bids
 
-#for i in range(1):
-while 1:
-    logfile.write("\n\nNEW ROUND\n\n")
-    bids = run_cake(copy.deepcopy(answers), MAX_DEGREES)
-    for bid in sorted(bids.iteritems(), key = lambda x: -x[1]): print "%r: %r"%(bid)
-    logfile.write("\n"+json.dumps(bids)+"\n")
-    logfile.flush()
+if __name__ == "__main__":
+    while 1:
+        logfile.write("\n\nNEW ROUND\n\n")
+        bids = run_cake(copy.deepcopy(answers), MAX_DEGREES)
+        for bid in sorted(bids.iteritems(), key = lambda x: -x[1]): print "%r: %r"%(bid)
+        logfile.write("\n"+json.dumps(bids)+"\n")
+        logfile.flush()

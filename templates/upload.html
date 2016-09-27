@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">Upload a Bot</h3>
+      </div>
+      <hr/>
+      <div>
+
+      <form action="upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <br/>
+        <label for="language">Language</label>
+        <select name="language">
+            <option value="">Select</option>
+            <option value="awk">awk</option>
+            <option value="bash">bash</option>
+            <option value="c++">C++</option>
+            <option value="java">Java</option>
+            <option value="node.js">Node.js</option>
+            <option value="python 2">Python 2</option>
+            <option value="python">Python 3</option>
+            <option value="r">R</option>
+            <option value="ruby">Ruby</option>
+            <option value="sh">sh</option>
+        </select>
+        <br/>
+        <input type="submit" value="Upload">
+      </form>
+      </div>
+    </div>
+  </body>
+</html>

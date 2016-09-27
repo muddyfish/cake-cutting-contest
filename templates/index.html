@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+              rel="stylesheet">
+        <title>Cake Cutting Contest</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h3>The Cake Cutting Contest</h3>
+            </div>
+            <hr/>
+            <a href="upload">Upload a bot</a>
+            <br>
+            <a href="run">Run a contest</a>
+            <hr/>
+            <p>
+                It’s going to be my birthday in just a couple of weeks and there’s going to be cake.<br>
+                One cake. And I’m going to share it.<br>
+                Fair person that I am, I’m letting you guys decide how much cake you want.<br>
+                However, I know you’ll be greedy and try to take as much as you can.<br>
+                To solve this I’ve come up with an amazing system for fairly cutting the cake.<br>
+                The bot who bids the least gets that amount of cake.<br>
+            </p>
+            <hr/>
+            <ul>
+                <li>Each bot will bid an amount of cake</li>
+                <li>The bot who bids for the least amount of cake gets that much</li>
+                <li>They are now out of the running and have their cake.</li>
+                <li>The remaining bots repeat this process until either:</li>
+                <ul>
+                    <li>There are no more bots</li>
+                    <li>There is no more cake</li>
+                </ul>
+            </ul>
+            <hr/>
+            <ul>
+                <li>Bots may be written in the following languages:</li>
+                <ul>
+                    <li>awk</li>
+                    <li>bash</li>
+                    <li>c++</li>
+                    <li>java</li>
+                    <li>node.js</li>
+                    <li>python 2</li>
+                    <li>python 3</li>
+                    <li>R</li>
+                    <li>ruby</li>
+                    <li>sh</li>
+                </ul>
+                <li>Other languages may be added upon request</li>
+                <li>Bots may not use file storage</li>
+                <li>Bots will take input through command line arguments</li>
+                <li>Bots will output an integer through stdout</li>
+            </ul>
+            <hr/>
+            <h4>Example python code</h4>
+            <pre><code>import random, math, sys
+
+total_degrees, degrees_left, total_people, people_left = map(int, sys.argv[1:])
+
+def get_equal_share(degrees_left, people):
+    return int(math.ceil(degrees_left/float(people)))
+
+print get_equal_share(degrees_left, people_left)</code></pre>
+        </div>
+    </body>
+</html>
